@@ -1,3 +1,6 @@
+
+
+
 products=[
     {'id':1,'name':'t-shirt','price':12.99,'created_date':'22-01-01','is_on_sale':False,'sale_price':None},
     {'id':2,'name':'shoes','price':22.45,'created_date':'22-01-01','is_on_sale':True,'sale_price':None},
