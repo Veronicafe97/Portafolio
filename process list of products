@@ -1,0 +1,38 @@
+##This code takes a dict and gives the data of:
+#1.-products greater than 25
+#2.-products on sale
+#3.-products on sale without product sale price
+
+
+products=[
+    {'id':1,'name':'t-shirt','price':12.99,'created_date':'22-01-01','is_on_sale':False,'sale_price':None},
+    {'id':2,'name':'shoes','price':22.45,'created_date':'22-01-01','is_on_sale':True,'sale_price':None},
+    {'id':3,'name':'dress-shirt','price':43.00,'created_date':'22-01-01','is_on_sale':False,'sale_price':None},
+    {'id':4,'name':'socks','price':14.99,'created_date':'22-01-01','is_on_sale':True,'sale_price':7.99},
+    {'id':5,'name':'trousers','price':32.50,'created_date':'22-01-01','is_on_sale':True,'sale_price':None},
+    {'id':6,'name':'jacket','price':150.00,'created_date':'22-01-01','is_on_sale':False,'sale_price':None},
+]
+
+def process_list(products):
+    a=len(products);
+    products_less_25={};
+    products_on_sale={};
+    products_no_price={};
+    for product in range(0,a):
+
+        if(products[product]['price']> 25):
+            products_less_25[product] = {products[product]['name']};
+    for product in range(0, a):
+        if(products[product]['is_on_sale']==True):
+            products_on_sale[product] = {products[product]['name']};
+    for product in range(0, a):
+        if(products[product]['is_on_sale']==True and products[product]['sale_price']==None):
+            products_no_price[product] = {products[product]['name']};
+
+    print('These products have a price greater than 25:', products_less_25);
+    print('These products are on Sale:', products_on_sale);
+    print('These products are on sale but doesnt contain the sale price:', products_no_price);
+
+
+
+process_list(products)
