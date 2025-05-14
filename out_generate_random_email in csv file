@@ -1,0 +1,25 @@
+import random
+import string
+
+list_of_domains=['@supersqa.com','@gmail.com','@yahoo.com','@outlook.com','@msn.com']
+letters=string.ascii_lowercase
+email_rand={}
+for domain in list_of_domains:
+    for i in range (0,20):
+        random_letter1=random.choice(letters)
+        random_letter2 = random.choice(letters)
+        random_letter3 = random.choice(letters)
+        random_string =random_letter1+random_letter2+random_letter3
+        strings_rand=random_string
+
+        lissr=[strings_rand,domain]
+        final_string = ''.join(lissr)
+        email_rand=final_string
+        var2 =email_rand
+
+        with open("C:/Users/veron/OneDrive/Documents/QA-Automation-Selenium/Folder with text/out_generate_random_email.csv",
+                  "a") as f:
+            f.write('\n')
+            f.write(var2)
+            f.write(',')
+
