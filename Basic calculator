@@ -1,0 +1,25 @@
+class Calcutator():
+    def __init__(self, num1, num2):
+        self.num1 = num1
+        self.num2 = num2
+    def addition(self):
+        result = self.num1 + self.num2;
+        print("The addition of your 2 numbers is: ", result);
+
+    def subtraction(self):
+        result = self.num1 - self.num2;
+        print("The substraction of your 2 numbers is: ", result);
+    def multiplication(self):
+        result = self.num1 * self.num2;
+        print("The multitplication of your 2 numbers is: ", result);
+    def division(self):
+        result = self.num1 / self.num2;
+        print("The division of your 2 numbers is: ", result);
+
+
+
+my_math = Calcutator(2, 5);
+my_math.addition()
+my_math.subtraction()
+my_math.multiplication()
+my_math.division()
