@@ -1,0 +1,28 @@
+sample_file='C:/Users/veron/OneDrive/Documents/QA-Automation-Selenium/Folder with text/out_generate_random_email.txt'
+with open(sample_file, 'r') as f:
+    content=f.read()
+
+content_list=content.split()
+a=len(content_list)
+list_of_domains=['@supersqa.com,','@gmail.com,','@yahoo.com,','@outlook.com,','@msn.com,']
+count_d1=0
+count_d2=0
+count_d3=0
+count_d4=0
+count_d5=0
+for i in range(a):
+    if (content_list[i][3:] in list_of_domains[0]):
+        count_d1=count_d1+1
+    if(content_list[i][3:] in list_of_domains[1]):
+        count_d2=count_d2+1
+    if (content_list[i][3:] in list_of_domains[2]):
+        count_d3 = count_d3 + 1
+    if (content_list[i][3:] in list_of_domains[3]):
+        count_d4 = count_d4 + 1
+    if (content_list[i][3:] in list_of_domains[4]):
+        count_d5 = count_d5 + 1
+print('Here the number of emails with domain @supersqa.com:',count_d1)
+print('Here the number of emails with domain @gmail.com:',count_d2)
+print('Here the number of emails with domain @yahoo.com:',count_d3)
+print('Here the number of emails with domain @outlook.com:',count_d4)
+print('Here the number of emails with domain @msn.com,:',count_d5)
