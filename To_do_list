@@ -1,0 +1,35 @@
+class TodoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, title):
+        if not title or not isinstance(title, str):
+            raise ValueError("Task title must be a non-empty string.")
+        self.tasks.append({"title": title, "done": False})
+
+    def complete_task(self, title):
+        for task in self.tasks:
+            if task['title'] == title:
+                task["done"] = True
+                return
+        else:
+            print ("Task title does not exist.")
+
+    def pending_tasks(self):
+        for task in self.tasks:
+            if task["done"]== False:
+                print(task["title"])
+                return task["title"]
+
+    def get_all_tasks(self):
+        print(self.tasks)
+        return self.tasks
+
+
+vero_todo = TodoList()
+vero_todo.add_task('Buy cookies')
+vero_todo.add_task('Buy milk')
+vero_todo.get_all_tasks()
+vero_todo.complete_task('Buy milk')
+vero_todo.get_all_tasks()
+vero_todo.pending_tasks()
