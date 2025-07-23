@@ -1,0 +1,68 @@
+class Student:
+    def __init__(self,name,student_id):
+        self.name=name
+        self.student_id=student_id
+        self.courses=[]
+
+    def enroll(self,course_name):
+        if type(course_name) is str:
+            self.courses.append(course_name)
+            print(f'The following course was added: {course_name}')
+            return(self.courses)
+        else:
+            raise ValueError ('Your course_name needs to be a string')
+            
+
+    def drop(self,course_name):
+        if type(course_name) is str:
+            for a in self.courses:
+                if a==course_name:
+                    self.courses.remove(course_name)
+                    print(f'The following course was removed: {course_name}')
+                    return(self.courses)
+        else:
+            raise ValueError ('Your course_name needs to be a string')
+
+    def get_schedule(self):
+        print(f'Student: {self.name} with ID: {self.student_id} have the following schedule {self.courses}')
+        return (self.courses)
+            
+class Course:
+    def __init__(self,course_name,capacity, enrolled_students):
+        self.capacity=capacity
+        self.course_name=course_name
+        self.enrolled_students=enrolled_students
+
+    def add_student(self,s_name,student_id):
+        self.s_name=s_name
+        self.student_id=student_id
+        if (self.enrolled_students<self.capacity):
+            self.enrolled_students=self.enrolled_students+1
+            return(f'Sudent: {self.s_name} with ID: {self.student_id} is now addded. {self.course_name} has capacity of {self.capacity-1} ')
+        else:
+            raise ValueError(f'Sorry the course {self.course_name} is already full')
+        
+    
+        
+s1=Student('Vero',23424)
+s2=Student('Mario',23232)
+s1.enroll('History')
+s1.enroll('Math')
+s1.enroll('Spanish')
+s1.enroll('Music')
+s1.drop('Music')
+s1.drop('History')
+
+s2.enroll('English')
+s2.enroll('Science')
+s2.enroll('Chemistry')
+
+s1.get_schedule()
+s2.get_schedule()
+
+
+
+c1=Course('Music',45,40)
+c2=Course('Math',10,10)
+
+c1.add_student('Vero',23424)
