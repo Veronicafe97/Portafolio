@@ -1,0 +1,40 @@
+class Employee:
+    def __init__(self,name,employee_id):
+        self.name=name
+        self.employee_id=employee_id
+
+    def get_info(self):
+        return(f'Employee name: {self.name} with ID: {self.employee_id}')
+        
+class FullTimeEmployee(Employee):
+    def __init__(self,name,employee_id,salary):
+        super().__init__(name,employee_id)
+        self.salary=salary
+        self.hour_salary=(self.salary/12)/160
+
+    def get_info(self):
+        return(f'Employee name: {self.name} with ID: {self.employee_id} salary:{self.salary}')
+
+class PartTimeEmployee(Employee):
+    def __init__(self,name,employee_id,hourly_rate,hours_worked):
+        super().__init__(name,employee_id)
+        self.hourly_rate=hourly_rate
+        self.hours_worked=hours_worked
+        
+    def get_info(self):
+        return(f'Employee name: {self.name} with ID: {self.employee_id} hourly rate:{self.hourly_rate} hours worked: {self.hours_worked}')
+
+    def calculate_pay(self):
+        self.salary=self.hourly_rate*self.hours_worked
+        return(self.salary)
+
+
+
+
+
+e1 = FullTimeEmployee("Alice", "E123", 55000)
+e2 = PartTimeEmployee("Bob", "P456", 20, 30)
+print(e1.get_info())  # Name: Alice, ID: E123, Salary: $55000
+print(e2.get_info())  # Name: Bob, ID: P456, Hourly Rate: $20, Hours Worked: 30
+print(e2.calculate_pay())  # 600       
+   
