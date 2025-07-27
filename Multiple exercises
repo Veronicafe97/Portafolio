@@ -1,0 +1,105 @@
+###ex1
+def string_reversal(stri):
+    new_str =[]
+    a=len(stri)
+    #print(a)
+    j=0
+    for i in stri:
+        pos = a - j - 1
+        #print(i)
+        print(stri[pos])
+        new_str.append(stri[pos])
+        j=j+1
+    final_str = "".join(new_str)
+    print(final_str)
+    print(type(final_str))
+
+
+#string_reversal("Harry Potter")
+
+
+###EX 2
+#output: nums = [4, 5, 2, 4, 3, 5, 2, 1]
+#input: [4, 5, 2, 3, 1]
+def remove_duplicates(listn):
+    f_list=[]
+    for num in listn:
+        if num not in f_list:
+            f_list.append(num)
+    return f_list
+
+nums = [4, 5, 2, 4, 3, 5, 2, 1]
+#print(remove_duplicates(nums))
+
+####EX 3
+log_data = """INFO 2025-07-14 10:00:00 System booted
+ERROR 2025-07-14 10:05:00 Failed to load module
+WARNING 2025-07-14 10:06:00 High memory usage
+ERROR 2025-07-14 10:07:00 Connection timeout
+INFO 2025-07-14 10:10:00 User login success"""
+
+def look_for(data_info,word):
+    split_data=data_info.split("\n")
+    for line in split_data:
+        if word in line:
+            print(line)
+
+#look_for(log_data,"ERROR")
+
+####EX 4
+#Validate email format
+def validate_email(email):
+    valid_formats=["@gmail.com","@outlook.com","@hotmail.com","@example.com"]
+    a=len(email)
+    for count in range(a):
+        if email[count] =="@":
+            pos=count
+            check_format=email[pos:]
+            if (check_format in valid_formats):
+                print(f"the email: {email} is on valid formats")
+     
+            else:
+                print(f"the email: {email} contains an invalid format")
+        
+
+email = "veronica.fuentes@example.com"
+#validate_email(email)
+
+#EX 5
+#CHECK THE PSWD IS STRONG
+#Has at least 8 characters
+#Contains at least one uppercase letter
+#Contains at least one lowercase letter
+#Contains at least one digit
+#Contains at least one special character (e.g. !@#$%^&*)
+
+def check_pswd(pswd):
+    count=0
+    upper_case_count=0
+    lower_case_count=0
+    digit_count=0
+    spec_count=0
+    lenn=len(pswd)
+    valid_dig=["0","1","2","3","4","5","6","7","8","9"]
+    spec_char=["!","@","#","$","%","^","&","*"]
+    if lenn >7:
+        count=count+1
+    for charac in pswd:
+        if charac.isupper()==True:
+            upper_case_count=upper_case_count+1
+        elif charac.islower()==True:
+            lower_case_count=lower_case_count+1
+        elif charac in valid_dig:
+            digit_count=digit_count+1
+        elif charac in spec_char:
+            spec_count=spec_count+1
+    
+    if count >0 and upper_case_count>0 and lower_case_count>0 and digit_count>0 and spec_count>0:
+        print(f"Password: {pswd} is strong")
+    else:
+        return(f"Password: {pswd} is weak, please change it")
+    
+
+#pswd= "StrongP@ss1"
+pswd= "weakpass"
+check_pswd(pswd)
