@@ -1,0 +1,49 @@
+
+#Test Report Generator
+#Write a class TestReport that stores the result of test cases. Implement add_test(name, status), summary()
+
+class TestReport():
+    def __init__(self,name):
+        self.name=name
+
+    def add_test(self,name,satuts):
+        file_path = "C:/Users/veron/OneDrive/Desktop/example.txt"
+        global username_info,password_info,timeout_info,logging_info
+        with open(file_path, 'r') as file:
+            content = file.read()
+            content=content.split("\n")
+            print(len(content))
+            for line in content:
+                if "username" in line:
+                    username_pos=line.find("=")
+                    username_info=line[username_pos+1:]
+                    #return(username_info)
+                if "password" in line:
+                    password_pos=line.find("=")
+                    password_info=line[password_pos+1:]
+                    #return(password_info)
+                if "timeout" in line:
+                    timeout_pos=line.find("=")
+                    timeout_info=line[timeout_pos+1:]
+                    #return(timeout_info)
+                if "logging" in line:
+                    logging_pos=line.find("=")
+                    logging_info=line[logging_pos+1:]
+                    #return(logging_info)
+            print(f"{self.name} added to report")
+            return(username_info,password_info,timeout_info,logging_info)
+    def summary(self,name):
+        print(f"Summary of file {self.name} is:")
+        print(f"username: {username_info}")
+        print(f"password: {password_info}")
+        print(f"timeout: {timeout_info}")
+        print(f"logging: {logging_info}")
+
+
+
+
+
+check1=TestReport("Primer user")
+check1.add_test("Primer user","Active")
+check1.summary("Primer user")
+
