@@ -1,0 +1,41 @@
+class Course:
+    def __init__(self,course_name):
+        self.course_name=course_name
+        self.students=set()
+
+    def enroll_student(self,student_id,student_name):
+        student=(student_id,student_name)
+        if student not in self.students:
+            self.students.add(student)
+        else:
+            print(f"Student {student_name} is already on the course {self.course_name}")
+
+    def get_enrolled_students(self):
+        print(f"Student enrolled: {self.students}")
+        return(self.students)
+        
+class AdvancedCourse(Course):
+    def __init__(self,course_name,prerequisites):
+        super().__init__(course_name)
+        self.prerequisites=prerequisites
+
+    def enroll_student(self,student_id,student_name,completed_courses):
+        super().enroll_student(student_id, student_name)
+        student=(student_id,student_name)
+        print(self.prerequisites)
+        print(completed_courses)
+        if self.prerequisites== completed_courses:
+            self.students.add(student)
+        else:
+            print(f"Student {student_name} cant enroll this course {self.course_name}")
+
+
+  
+course1 = Course("Intro to Python")
+course1.enroll_student(101, "Alice")
+course1.enroll_student(102, "Bob")
+course1.get_enrolled_students()
+adv_course = AdvancedCourse("Machine Learning", {"Intro to Python"})#, "Linear Algebra"})
+completed_courses = {"Intro to Python"}   
+adv_course.enroll_student(101, "Alice", completed_courses)
+
