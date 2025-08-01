@@ -76,3 +76,40 @@ cart1.add_to_cart("apple",3, 1)
 cart1.add_to_cart("banana",2, 5)
 cart1.add_to_cart("banana",2, 1)
 cart1.print_sc()
+
+def main():
+    # Initialize inventory
+    inventory = ShopInventory()
+    inventory.add_item("apple", 1, 10)
+    inventory.add_item("banana", 2, 15)
+    inventory.add_item("orange", 3, 20)
+
+    # Update inventory
+    inventory.update_price("banana", 2.5)
+    inventory.update_quantity("apple", 12)
+
+    # Show current inventory
+    print("\n--- Inventory after updates ---")
+    inventory.check_inventory()
+
+    # Create a shopping cart linked to the same inventory
+    cart = ShoppingCart(inventory)
+
+    # Add items to cart
+    print("\n--- Adding to Cart ---")
+    cart.add_to_cart("apple", 1, 5)
+    cart.add_to_cart("banana", 2.5, 7)
+    cart.add_to_cart("orange", 3, 3)
+    cart.add_to_cart("banana", 2.5, 10)  # Exceeds stock — should print warning
+
+    # Show inventory after cart deductions
+    print("\n--- Inventory after purchases ---")
+    inventory.check_inventory()
+
+    # Show cart contents and cost
+    print("\n--- Shopping Cart Summary ---")
+    cart.print_sc()
+
+# Run the main function
+if __name__ == "__main__":
+    main()
