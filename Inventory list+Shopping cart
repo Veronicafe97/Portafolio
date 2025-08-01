@@ -1,0 +1,78 @@
+class ShopInventory():
+    def __init__(self):
+        self.inventory_list=[]
+        self.inventory_total=[]
+
+    def add_item(self,item,price,quantity):
+        for record in self.inventory_total:
+            if record[0] == item:
+                record[2] += quantity
+                return self.inventory_total
+        self.inventory_total.append([item, price, quantity])
+        return self.inventory_total
+        
+    def update_price(self,item,price):
+
+        a=len(self.inventory_total)
+        for n in range(a):
+            if item in self.inventory_total[n][0]:
+                self.inventory_total[n][1]=price
+        return(self.inventory_total)
+
+    def update_quantity(self,item,quantity):
+        a=len(self.inventory_total)
+        for n in range(a):
+            if item in self.inventory_total[n][0]:
+                self.inventory_total[n][2]=quantity
+        return(self.inventory_total)
+    def check_inventory(self):
+        print(f" total inventory is: {self.inventory_total}")
+
+class ShoppingCart():
+    def __init__(self,inventory: ShopInventory):
+        self.cart = []
+        self.inventory = inventory
+
+    def add_to_cart(self,item,price,quantity):
+        for record in self.inventory.inventory_total:
+            if record[0] == item:
+                if quantity<=record[2] :
+                    record[2] -= quantity
+                    self.cart.append([item, price, quantity])
+                else: 
+                    print(f" total inventory doesnt have enough of the following item: {item}")
+        
+        return self.cart
+            
+    def remove_cart(self,item,price,quantity):
+        n=len(self.inventory.inventory_total)
+        for i in range(n):
+            if(item==self.inventory.inventory_total[i][0]):
+                pass
+
+    def print_sc(self):
+        print("--- Report ---")
+        cost=0
+        for ss in self.cart:
+            print(f"Product: {ss[0][0:3]} | Quantity: {ss[2]}")
+            cost=ss[2]*ss[1]+cost
+        print(f"Final price: {cost}")
+                   
+
+
+inventory = ShopInventory()
+inventory.add_item("apple", 1, 1)
+inventory.add_item("apple", 1, 20)
+inventory.add_item("banana", 2, 10)
+inventory.update_price("banana",3)
+inventory.update_quantity("apple",22)
+inventory.check_inventory()
+
+cart1 = ShoppingCart(inventory)
+cart2 = ShoppingCart(inventory)
+cart1.add_to_cart("apple",3, 5)
+inventory.check_inventory()
+cart1.add_to_cart("apple",3, 1)
+cart1.add_to_cart("banana",2, 5)
+cart1.add_to_cart("banana",2, 1)
+cart1.print_sc()
