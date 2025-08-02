@@ -1,0 +1,74 @@
+class Gym():
+    def __init__(self):
+        self.trainers_list=[]
+
+    def add_trainer(self,trainer_id,name,specialization):
+        availability=True
+        record=[trainer_id,name,specialization,availability]
+        n=len(self.trainers_list)
+        for i in self.trainers_list:
+            if(trainer_id==i[0]):
+                print(f"Can't add {record[1]} again, is already on the list")
+                return(self.trainers_list)
+    
+        self.trainers_list.append(record)
+        return(self.trainers_list)
+
+    def view_trainers(self):
+        print("--TRAINERS LIST--")
+        for train in self.trainers_list:
+            print(f"Trainer: {train[1]} ID: {train[0]}| Specialization: {train[2]}")
+
+    def update_trainer_av(self,trainer_id,availability):
+        n=len(self.trainers_list)
+        for m in range(n):
+            if (trainer_id==self.trainers_list[m][0]):
+                if(availability==True):
+                    self.trainers_list[m][3]=True
+                else:
+                    self.trainers_list[m][3]=False
+        return(self.trainers_list)
+                    
+                
+class Member:
+    
+    def __init__(self,member_id,m_name,gym:Gym):
+        self.member_id=member_id
+        self.m_name=m_name
+        self.gym=gym
+        self.assigned_tr=[]
+         
+    def assign_trainer(self,trainer_id, date):
+        record_tr=[trainer_id, date]
+        for j in self.gym.trainers_list:
+            if(trainer_id==j[0]):
+                if(j[3]==True):
+                    print(f"{self.m_name} you have an appointment with {j[1]}| {j[2]} on date: {date}")
+                    self.assigned_tr.append(record_tr)
+                    return(self.assigned_tr)
+                else:
+                    print(f"Sorry, {self.m_name}, {j[1]}| {j[2]} is not available on date: {date}")
+                    
+    def view_assigned_trainer(self):
+        print(f"--Assigned trainers for {self.m_name}--")
+        for j in self.assigned_tr:
+            print(f"Trainer ID: {j[0]}| Date: {j[1]}")
+            
+            
+        
+        
+        
+                
+                
+
+
+gym = Gym()
+gym.add_trainer(201, "Jake", "Strength")
+gym.add_trainer(201, "Jake", "Strength")
+gym.add_trainer(202, "Lily", "Cardio")
+gym.view_trainers()
+
+member1 = Member("M001", "Emma", gym)
+member1.assign_trainer(201,"2025-08-15")
+gym.update_trainer_av(201,False)
+member1.view_assigned_trainer()
