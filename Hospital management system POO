@@ -1,0 +1,62 @@
+class Hospital():
+    def __init__(self):
+        self.doctor_list=[]
+
+    def add_doctor(self,doctor_id, name, specialization):
+        record=[doctor_id, name, specialization]
+
+        n=len(self.doctor_list)
+        for i in range(n):
+            if(doctor_id==self.doctor_list[i][0]):
+                print(f"Doctor ID: {doctor_id} is already on the list")
+                return( self.doctor_list)
+
+        self.doctor_list.append(record)
+        return( self.doctor_list)
+
+    def view_doctors(self):
+        print("--Doctors registered--")
+        for doc in self.doctor_list:
+            print(f"{doc[1]} with ID: {doc[0]}| Specialization: {doc[2]}")
+class Patient(Hospital):
+    def __init__(self,Patient_ID,Patient_name):
+        self.hospital=hospital
+        self.appoint=[]
+
+    def book_appointment(self,doctor_id,date):
+        for record in self.hospital.doctor_list:
+            if(doctor_id==record[0]):
+                print(f"{record[1]} is available to have an appointment on {date}")
+                addit=[doctor_id,date]
+        self.appoint.append(addit)
+        return(self.appoint)   
+
+    def view_appointment(self):
+        print(f"--Patient Appoinments--")
+        for app in self.appoint:
+            print(f"Doctor: {app[0]} | Date: {app[1]}")
+
+    def cancel_appointment(self,doctor_id):
+        for record in self.appoint:
+            if(doctor_id==record[0]):
+                self.appoint.remove(record)
+        return(self.appoint)
+        
+            
+    
+            
+        
+hospital = Hospital()   
+hospital.add_doctor(101, "Dr. Smith", "Cardiologist")
+#hospital.add_doctor(101, "Dr. Smith", "Cardiologist")
+hospital.add_doctor(102, "Dr. Jane", "Neurologist")
+hospital.view_doctors()
+
+p1 = Patient("P001", "Alice")
+p1.book_appointment(101, "2025-08-15")
+p1.book_appointment(102, "2025-08-16")
+p1.view_appointment()
+p1.cancel_appointment(101)
+p1.cancel_appointment(102)
+p1.book_appointment(101, "2025-08-15")
+p1.book_appointment(102, "2025-08-16")
