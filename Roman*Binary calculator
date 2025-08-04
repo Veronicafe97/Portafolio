@@ -1,0 +1,79 @@
+def product(roman, binary):
+    roman=list(roman)
+    binary=list(binary)
+    m=len(roman)
+    n=len(binary)
+    zero_missing=4-n
+    value_f=[]
+    
+    for let in roman:
+        if(let=="M"):
+            value=1000
+        elif (let=="D"):
+            value=500
+        elif (let=="C"):
+            value=100   
+        elif (let=="L"):
+            value=50
+        elif (let=="X"):
+            value=10
+              
+        elif (let=="V"):
+            value=5    
+        elif (let=="I"):
+            value=1
+    
+            
+        value_f.append(value)  
+
+    summ=0
+    prev_value=0
+    for dig in reversed(value_f):
+        if(dig<prev_value):
+            summ=summ-dig
+        else:
+            summ=summ+dig
+        prev_value=dig
+
+
+
+    if (zero_missing==0):
+        binary=binary
+    else:
+        for j in  range(zero_missing):
+            binary.insert(j,"0")
+
+    binary_f="".join(binary)
+    binary_f=str(binary_f)
+    
+    if binary_f =="0000":
+        b_value=0 
+    if binary_f =="0001":
+        b_value=1
+    if binary_f =="0010":
+        b_value=2     
+    if binary_f =="0011":
+        b_value=3    
+    if binary_f =="0100":
+        b_value=4
+    if binary_f =="0101":
+        b_value=5
+    if binary_f =="0110":
+        b_value=6     
+    if binary_f =="0111":
+        b_value=7     
+    if binary_f =="1000":
+        b_value=8         
+    if binary_f =="1001":
+        b_value=9     
+    if binary_f =="1010":
+        b_value=10
+
+
+    final_prod=b_value*summ
+    return(final_prod)
+
+product("CMXC","101")
+
+#product("IV","101")
+#product("XII","101")
