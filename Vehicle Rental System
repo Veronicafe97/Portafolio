@@ -1,0 +1,66 @@
+class Vehicle:
+    def __init__(self,vehicle_id, brand, rate_day):
+        self.vehicle_id=vehicle_id
+        self.brand=brand
+        self.rate_day=rate_day
+        self.available=True
+
+    def rent(self,vehicle_id):
+        if self.available==True:
+            print(f"Vehicle {self.vehicle_id} is available, we will rent it for you")
+            self.available=False
+        else:
+            print(f"Vehicle {self.vehicle_id} is already rented")
+
+    def return_vehicle(self,vehicle_id):
+        if self.available==False:
+            print(f"Thanks for returning vehicle {self.vehicle_id}")
+        else:
+            print(f"Vehicle {self.vehicle_id} was already returned")
+
+    def __str__(self):
+        return(f"This vehicle with ID: {self.vehicle_id}, is brand {self.brand} and the rate is {self.rate_day}")
+
+class Car(Vehicle):
+    def __init__(self,vehicle_id, brand, rate_day,num_doors):
+        super().__init__(vehicle_id, brand, rate_day)
+        self.num_doors=num_doors
+
+class Bike(Vehicle):
+    def __init__(self,vehicle_id, brand, rate_day,helmet_required):
+        super().__init__(vehicle_id, brand, rate_day)
+        self.helmet_required=helmet_required
+
+class Truck(Vehicle):
+    def __init__(self,vehicle_id, brand, rate_day,cargo_cap):
+        super().__init__(vehicle_id, brand, rate_day)
+        self.cargo_cap=cargo_cap
+
+
+class RentalSystem:
+    def __init__(self):
+        self.vehicle_list=[]
+        
+
+    def add_vehicle(self,vehicle):
+        self.vehicle_list.append(vehicle)
+        return(f"Vehicle was added: {vehicle}")
+
+    def list_av_vehicles(self):
+        print(f"-------Available vehicles-------")
+        for v in  self.vehicle_list:
+            if(v.available):
+                print(v)
+            
+        
+
+# System startup
+system = RentalSystem()
+
+# Add vehicles
+system.add_vehicle(Car("C001", "Toyota", 40, 4))
+system.add_vehicle(Bike("B001", "Yamaha", 15, True))
+system.add_vehicle(Truck("T001", "Volvo", 100, 5000))
+# List available
+#system.list_av_vehicles()
+        
