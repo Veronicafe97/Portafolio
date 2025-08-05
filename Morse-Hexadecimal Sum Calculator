@@ -1,0 +1,69 @@
+def sum_hex_morse(morse,hexn):
+    morse=morse.split(" ")
+    hexn=list(hexn)
+    n=len(morse)
+    m=len(hexn)
+    morse_map = {
+        '-----': 0,
+        '.----': 1,
+        '..---': 2,
+        '...--': 3,
+        '....-': 4,
+        '.....': 5,
+        '-....': 6,
+        '--...': 7,
+        '---..': 8,
+        '----.': 9,
+    }
+    
+    total=[0,0]
+    for i in range(n):
+        for elem in morse:
+            total_morse=int(morse_map[elem])
+            total[i]=total_morse
+            i=+1
+    
+    number_string = "".join(str(d) for d in total)
+    result = int(number_string)
+
+
+    hex_map={
+        '0':0,
+        '1':1,
+        '2':2,
+        '3':3,
+        '4':4,
+        '5':5,
+        '6':6,
+        '7':7,
+        '8':8,
+        '9':9,
+        'A':10,
+        'B':11,
+        'C':12,
+        'D':13,
+        'E':14,
+        'F':15,
+    }
+    hex_t=[0,0]
+    for l in range(m):
+        for dig in hexn:
+            trans=int(hex_map[dig])
+            hex_t[l]=trans
+            l=+1
+           
+    hex_val=hex_t[0]*16+hex_t[1]
+    total_sum=hex_val+result
+    return(total_sum)
+        
+
+test1=sum_hex_morse("...-- .----", "1F")  
+test2=sum_hex_morse("...-- ...--", "3D") 
+test3=sum_hex_morse("...-- -----", "2A") 
+test4=sum_hex_morse("..... ..---", "A2") 
+test5=sum_hex_morse("....- ...--", "1C") 
+print(test1)
+print(test2)
+print(test3)
+print(test4)
+print(test5)
