@@ -1,0 +1,63 @@
+class Flight:
+    def __init__(self,f_number, origin, dest, seats_t, seats_av):
+        self.f_number=f_number
+        self.origin=origin
+        self.dest=dest
+        self.seats_t=seats_t
+        self.seats_av=seats_av
+
+    def book_seat(self,seats2book):
+        self.seats_av=self.seats_av-seats2book
+
+    def cancel_seat(self,seats2cancel):
+        self.seats_av=self.seats_av+seats2cancel
+
+    def __str__(self):
+        return (f"Flight information: Flight# {self.f_number} |Origin: {self.origin} | Destination: {self.dest} | Total seats: {self.seats_t} | Available seats: {self.seats_av}")
+class DomesticFlight(Flight):
+    def __init__(self,f_number, origin, dest, seats_t, seats_av,state_tax):
+        super().__init__(f_number, origin, dest, seats_t, seats_av)
+        self.state_tax=state_tax
+
+class InternationalFlight(Flight):
+    def __init__(self,f_number, origin, dest, seats_t, seats_av,c_tax):
+        super().__init__(f_number, origin, dest, seats_t, seats_av)
+        self.c_tax=c_tax
+
+class Airline:
+    def __init__(self,flight=Flight):
+        self.list_f=[]
+
+    def add_flight(self,flight):
+        self.list_f.append(flight)
+        
+
+    def list_flights(self):
+        print("---List of flights---")
+        for f in self.list_f:
+            print(f"Flight# {f.f_number} |Origin: {f.origin} | Destination: {f.dest} | Total seats: {f.seats_t} | Available seats: {f.seats_av}")
+        #return(self.list_f)
+
+    def av_flights(self):
+        print(f"Available flights only")
+        for i in self.list_f:
+            if (i.seats_av>0):
+                print(i)
+    
+
+    
+airline = Airline()
+
+# Add flights
+airline.add_flight(DomesticFlight("D101", "New York", "Miami", 10, 8,10))
+airline.add_flight(InternationalFlight("I205", "Los Angeles", "Tokyo", 15, 12,8))
+
+# List flights
+airline.list_flights()
+# Book seats
+airline.list_f[0].book_seat(4)
+airline.list_f[0].book_seat(4)
+airline.list_f[1].book_seat(2)
+
+# Show available flights only
+airline.av_flights()
