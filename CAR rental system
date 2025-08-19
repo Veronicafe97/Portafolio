@@ -1,0 +1,101 @@
+class Vehicle:
+    def __init__(self,vehicle_id, brand, rate,av):
+        self.vehicle_id=vehicle_id
+        self.brand=brand
+        self.rate=rate
+        self.av=av
+
+
+class Car(Vehicle):
+    def __init__(self,vehicle_id, brand, rate,av,door_n):
+        super().__init__(vehicle_id, brand, rate,av)
+        self.door_n=door_n
+
+class Bike(Vehicle):
+    def __init__(self,vehicle_id, brand, rate,av,helmet):
+        super().__init__(vehicle_id, brand, rate,av)
+        self.helmet=helmet
+
+class Truck(Vehicle):
+    def __init__(self,vehicle_id, brand, rate,av,cargo):
+        super().__init__(vehicle_id, brand, rate,av)
+        self.cargo=cargo
+
+
+class RentalSystem:
+    def __init__(self,vehicle=Vehicle):
+        self.list_r=[]
+
+    def add_vehicle(self,vehicle):
+        self.list_r.append(vehicle)
+
+    def list_available(self):
+        print("--Available  vehicles--")
+        for item in self.list_r:
+            if(item.av==True):
+                print(f"Vehicle ID {item.vehicle_id} is available")
+        
+            
+
+    def rent_vehicle(self,vehicle_id,days):
+        global money
+ 
+        for item in self.list_r:
+            if (item.vehicle_id ==vehicle_id):
+                if(item.av ==True):
+                    item.av=False
+                    global days_taken
+                    days_taken=days
+                    price2pay=days_taken*item.rate
+                    
+                    print(f"Vehicle ID {item.vehicle_id} is rented for {days_taken} day")
+                    print(f"Please pay: {price2pay}")
+                    money=money+price2pay
+                    print(f"Money value= {money}")
+                    
+                else:
+                    print(f"Sorry, Vehicle ID {item.vehicle_id} is already rented")
+                
+
+    def return_vehicle(self,vehicle_id):
+        for item in self.list_r:
+            if (item.vehicle_id ==vehicle_id):
+                item.av=True
+                
+                print(f"Vehicle ID {item.vehicle_id} was returned after {days_taken} days, THANKS")
+                
+                
+
+    def calculate_income(self):
+        print(f"Total income for today is: {money}")
+        
+
+
+            
+                
+        
+            
+
+system = RentalSystem()
+system.add_vehicle(Car("C001", "Toyota", 40, True, 4))
+system.add_vehicle(Bike("B001", "Yamaha", 15, True,True))
+system.add_vehicle(Truck("T001", "Volvo", 100,True, 5000))
+
+# List available vehicles
+system.list_available()
+
+# Rent a vehicle
+system.rent_vehicle("C001", 3)
+
+# Try to rent it again
+system.rent_vehicle("C001", 2)
+
+# Return the vehicle
+system.return_vehicle("C001")
+
+
+# Rent again after return
+system.rent_vehicle("C001", 1)
+
+# Check income
+system.calculate_income()
