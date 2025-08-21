@@ -1,0 +1,137 @@
+class Account:
+    def __init__(self,account_id, owner):
+        self.account_id=account_id
+        self.owner=owner
+        self.balance=0
+        self.trans=[]
+
+    def deposit(self,amount,memo):
+        if (amount>0):
+            self.balance=self.balance+amount
+            new_balance=self.balance
+            record=["deposit", amount, new_balance, memo]
+            self.trans.append(record)
+        
+        else:
+            print(f"Unable to process transaction, amount need to be more than 0")
+
+    def withdraw(self,amount,memo):
+        if (amount>0):
+            if (amount<self.balance):
+                self.balance=self.balance-amount
+                new_balance=self.balance
+                record=["deposit", amount, new_balance, memo]
+                self.trans.append(record)
+            else:
+                InsufficientFunds=1
+                print(f"Unable to process transaction, amount requested exceeds balance amount")   
+        else:
+            print(f"Unable to process transaction, amount need to be more than 0")
+
+    def transactions_check(self):
+        print("--Transactions--")
+        for item in self.trans:
+            print(f"Transaction type: {item[0]} | Amount:{item[1]}| Balance: {item[2]}| Memo: {item[3]}")
+            
+        
+
+class CheckingAccount(Account):
+    def __init__(self,account_id, owner,overdraft_limit: float=0.0):
+        self.overdraft_limit=float(overdraft_limit)
+        super().__init__(account_id, owner)
+
+    def withdraw(self,amount,memo):
+        if (amount>0):
+            if (amount>self.balance or amount>self.overdraft_limit):
+                self.balance=self.balance-amount
+                new_balance=self.balance
+                record=["deposit", amount, new_balance, memo]
+                self.trans.append(record)
+                Interest=0
+            else:
+                InsufficientFunds=1
+                print(f"Unable to process transaction, amount requested exceeds balance amount")   
+        else:
+            print(f"Unable to process transactionb, amount need to be more than 0")
+
+class SavingsAccount(Account):
+    def __init__(self,account_id, owner,monthly_interest_rate: float=0.0):
+        self.monthly_interest_rate=float(monthly_interest_rate)
+        super().__init__(account_id, owner)
+
+    def apply_interest(self):
+        Interest=self.balance * self.monthly_interest_rate
+        self.balance=self.balance+Interest
+        new_balance=self.balance
+        record=["Interest", Interest, new_balance,"monthly"]
+        self.trans.append(record)
+
+    def withdraw(self,amount,memo):
+        if (amount>0):
+            if (amount>self.balance):
+                self.balance=self.balance-amount
+                new_balance=self.balance
+                record=["deposit", amount, new_balance, memo]
+                self.trans.append(record)
+                Interest=0
+            else:
+                InsufficientFunds=1
+                print(f"Unable to process transaction, amount requested exceeds balance amount")   
+        else:
+            print(f"Unable to process transactionb, amount need to be more than 0")
+
+class Bank:
+    def __init__(self,account=Account):
+        self.list_account=[]
+
+    def open_checking(self,account_id, owner,overdraft_limit: float=0.0):
+        record=[account_id, owner,overdraft_limit]
+        self.list_account.append(record)
+
+    def open_savings(self,account_id, owner,monthly_interest_rate: float=0.0):
+        record=[account_id, owner,monthly_interest_rate]
+        self.list_account.append(record)
+
+    def get(self,account_id):
+        for item in self.list_account:
+            if (item[0]==account_id):
+                print(item)
+
+    def close(self,account_id):
+        for item in self.list_account:
+            if (item[0]==account_id):
+                if (item.balance==0.0):
+                    print(f"ACCOUNT WITH ID {account_id} is now close")
+                else:
+                    raise ValueError("Balance is not zero, cant close the account")
+
+    def total_assest(self):
+        pass
+
+        
+        
+
+
+bank = Bank()
+bank.open_checking("C1", "Alice", overdraft_limit=200)
+bank.open_savings("S1", "Bob", monthly_interest_rate=0.01)
+c = bank.get("C1")
+s = bank.get("S1")
+c = CheckingAccount("C2", "Cara", overdraft_limit=0)
+c.deposit(0,"para comida")
+c.deposit(100,"para comida")
+c.deposit(200,"para salir a pasear")
+c.transactions_check()
+s = SavingsAccount("S2", "Eve", monthly_interest_rate=0.02)
+s.deposit(50,"para regalos")
+s.withdraw(30,"atm")
+s.transactions_check()
+c = CheckingAccount("C4", "Fred", overdraft_limit=100)
+c.deposit(50,"para mama")
+c.withdraw(120,"bills")
+c.transactions_check()
+
+s = SavingsAccount("S5", "Lia", monthly_interest_rate=0.03)  # 3%
+s.deposit(1000,"utilities")
+s.apply_interest()
+s.transactions_check()
